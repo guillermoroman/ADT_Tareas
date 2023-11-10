@@ -1,9 +1,56 @@
-Modificar el programa con la clase Estudiante.
-- Añadir un campo booleano `becado`.
-- **Refactorizar** el programa actual, extrayendo la funcionalidad de lectura y escritura que teníamos en la clase estudiante a una clase llamada `GestorFicherosDAT`.
-- Añadiremos una clase `GestorFicherosCSV`, capaz de guardar los datos en un archivo CSV a través del método `escribirCSV.
-- Añadiremos una clase GestorFicherosXML, capaz de guardar los datos en un archivo XML a través del método `escribirXML`. Escribiremos la cabecera con la información de forma manual con el contenido que vemos en el ejemplo
 
+### 1. Añadir un campo booleano `becado`.
+
+# Refactorización y nuevas clases
+
+Reorganizar el código de la clase Estudiante.
+
+Utilizar `ArrayList<Estudiante>` en lugar de `Estudiante[]`. A la hora de realizar la lectura, disfrutaremos de varias ventajas: flexibilidad en el tamaño, métodos útiles como `add()`, `remove()`, `size()`, `isEmpty()`, y otros que nos simplificarán la manipulación de la colección. Más allá del uso que nosotros le demos en nuestros gestores de archivos, la colección será más útil en este formato para futuras operaciones que queramos hacer con la misma.
+
+```java
+public void cargarLista(List<Estudiante> listaEmpleados)
+public void guardarLista(List<Estudiante> listaEmpleados)
+```
+
+## Clases
+En la organización propuesta, aparecerán las siguientes clases:
+- Main
+- Estudiante
+- GestorFicherosDAT
+- GestorFicherosCSV
+- GestorFicherosXML
+### Estudiante
+```java
+// Constructor con parámetros
+public Estudiante (int id, String nombre, double calificacion, boolean beca)
+
+// Constructor vacío
+public Estudiante ()
+
+// toString
+public String toString()
+
+//Getters y Setters
+...
+```
+### GestorFicherosXXX
+Declararemos las tres clases como abstractas, ya que no precisamos crear objetos para disfrutar de su funcionalidad. 
+
+Las tres clases implementarán dos métodos con las siguientes cabeceras:
+```java
+public ArrayList<Estudiante> cargarLista(String fileName)
+public void guardarLista(ArrayList<Estudiante> listaEmpleados)
+```
+
+### A implementar solo por GestorFicherosDAT
+
+```Java
+public static Estudiante cargarRegistro(String fileName, int numReg)
+}
+```
+
+### Main
+Incluye instrucciones para comprobar que todos los métodos funcionan.
 
 ejemplo de formato CSV:
 ```CSV
@@ -47,5 +94,13 @@ Ejemplo de formato XML:
 </estudiantes>
 ```
 
+## Opcional: Impresión de datos por pantalla:
+Cambiar el método `toString` de la clase `Estudiante` para que los campos tengan una longitud fija y se puedan leer más fácilmente
 
-
+```
+Nombre: Juan.        ID: 1.   Calif.: 8.56.   Beca: true
+Nombre: María.       ID: 2.   Calif.: 6.83.   Beca: false
+Nombre: Sara.        ID: 3.   Calif.: 9.23.   Beca: false
+Nombre: Jacinto.     ID: 4.   Calif.: 5.45.   Beca: true
+Nombre: Mario.       ID: 5.   Calif.: 7.83.   Beca: false
+```

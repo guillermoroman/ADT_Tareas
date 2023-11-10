@@ -52,6 +52,7 @@ public static Estudiante cargarRegistro(String fileName, int numReg)
 ### Main
 Incluye instrucciones para comprobar que todos los métodos funcionan.
 
+### Ejemplos de contenido de archivos
 ejemplo de formato CSV:
 ```CSV
 ID,Nombre,Calificación  

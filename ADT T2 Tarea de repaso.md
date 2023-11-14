@@ -52,7 +52,6 @@ public static Estudiante cargarRegistro(String fileName, int numReg)
 ### Main
 Incluye instrucciones para comprobar que todos los métodos funcionan.
 
-### Ejemplos de contenido de archivos
 ejemplo de formato CSV:
 ```CSV
 ID,Nombre,Calificación  
@@ -105,3 +104,34 @@ Nombre: Sara.        ID: 3.   Calif.: 9.23.   Beca: false
 Nombre: Jacinto.     ID: 4.   Calif.: 5.45.   Beca: true
 Nombre: Mario.       ID: 5.   Calif.: 7.83.   Beca: false
 ```
+
+
+# Parte 2
+
+Implementa en las clases GestorFicherosDAT y GestorFicherosCSV las siguientes funciones: 
+- Añadir registro.
+- Modificar registro.
+-  Borrar registro.
+
+Nota: Cuando borramos un registro en un fichero de acceso aleatorio, si borramos los datos y queremos utilizar su espacio, el sistema dejará de acceder al registro correctamente utilizando nuestro método. Para solucionarlo nos podemos plantear a grandes rasgos dos opciones:
+
+#### Opción A:
+Cuando borremos un registro, lo marcaremos como borrado dando al `id` un valor de 0 o un valor negativo. Cuando leamos un registro y observemos este valor, daremos instrucciones a nuestro programa para que lo interprete como un registro eliminado.
+
+#### Opción B:
+Implementar un sistema de indexado. Podemos crear una clase índice que mantendrá un mapeo de IDs de estudiantes a sus posiciones en el archivo. Puede ser una simple `HashMap` o cualquier otra estructura de datos adecuada. De esta forma, la dirección concreta de memoria donde se encuentra un registro, no está directamente relacionada con el id del registro, sino que estará almacenada en el `HashMap`. Siempre que hagamos una operación de adición, borrado o modificación del id, deberemos actualizar no solo el registro, si no su referencia en el `HashMap`. Si borramos un registro, podemos asociar a sun índice, una posición `null`.
+
+Esta opción puede ser interesante para sistemas que sufren muchos cambios.
+
+
+
+
+Implementar una clase IndiceEstudiantes que mantendrá un mapeo de IDs de estudiantes a sus posiciones en el archivo. Puede ser una simple `HashMap` o cualquier otra estructura de datos adecuada.
+
+**Actualizar Métodos para Usar el Índice**: Modifica los métodos existentes para que utilicen este índice al buscar registros.
+    
+**Método para Borrar un Registro**: Esto puede ser complicado, ya que implica no solo eliminar el registro del archivo sino también actualizar el índice y potencialmente mover otros registros en el archivo para llenar el espacio vacío.
+
+Crea una clase que implemente operaciones para añadir, buscar, borrar y modificar registros de un fichero con organización secuencial indexada. Existirá un único índice para el campo clave del fichero. El índice será un fichero adicional cuyo nombre indique el fichero principal (de datos) y el campo de indexación (que, en este caso, y según se ha dicho, es el campo clave). El índice lo creará el constructor de la clase, junto con el fichero principal. Los registros borrados no se deben borrar, sino marcarse como borrados tanto en el fichero principal como en el fichero de índice. En este último se podría poner un número negativo como posición para indicar que el registro está borrado. Los nuevos registros se añadirán siempre al final del fichero principal.
+
+La operación de inserción debe recomponer el índice, para ello hay que insertar una nueva entrada en el lugar apropiado. El índice no es más que un tipo especial de fichero secuencial ordenado, y el fichero principal un fichero secuencial no ordenado, por lo que se pueden utilizar las clases desarrolladas en ejercicios anteriores.

@@ -36,15 +36,15 @@ Declararemos las tres clases como abstractas, ya que no precisamos crear objetos
 
 Las tres clases implementarán dos métodos con las siguientes cabeceras:
 ```java
-public ArrayList<Estudiante> cargarLista(String fileName)
-public void guardarLista(ArrayList<Estudiante> listaEmpleados)
+public ArrayList<Estudiante> cargarLista(String nombreArchivo)
+public void guardarLista(ArrayList<Estudiante> listaEmpleados, String nombreArchivo)
 ```
 
 ### GestorFicherosDAT
 Además de los dos métodos implementados por todas las clases GestorDeficherosXXX:
 ```java
 public ArrayList<Estudiante> cargarLista(String fileName)
-public void guardarLista(ArrayList<Estudiante> listaEmpleados)
+public void guardarLista(ArrayList<Estudiante> listaEmpleados, String fileName)
 ```
 GestordeFicherosDAT podrá implementar un método para cargar un registro concreto de forma directa indicando el número de registro.
 ```Java

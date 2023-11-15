@@ -2,9 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.text.NumberFormat;
 
 public abstract class GestorFicherosCSV{
+    //private static NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
     public static void guardarLista(ArrayList<Estudiante> estudiantes, String nombreArchivo) {
         try (FileWriter writer = new FileWriter(nombreArchivo)) {
             // Escribir la cabecera del CSV
@@ -37,7 +41,25 @@ public abstract class GestorFicherosCSV{
                 if (datos.length >= 3) {
                     int id = Integer.parseInt(datos[0]);
                     String nombre = datos[1];
-                    double calificacion = Double.parseDouble(datos[2]);
+
+                    /*
+                    //double calificacion = Double.parseDouble(datos[2]);
+                    */
+
+                    /*
+                    Number number;
+                    double calificacion = 0.00;
+                    try{
+                        number = format.parse(datos[2]);
+                        calificacion = number.doubleValue();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    */
+                    String calificacionString = datos[2];
+                    calificacionString = calificacionString.replace(',', '.');
+                    double calificacion = Double.parseDouble(calificacionString);
+
                     boolean beca = Boolean.parseBoolean(datos[3]);
 
                     estudiantes.add(new Estudiante(id, nombre, calificacion, beca));
